@@ -1,0 +1,28 @@
+
+
+
+DBus interface
+--------------------
+Real methods:
+
+    AddNewItem (string arg) ==> boolean
+    DelItem (string arg) ==> boolean
+    ItemInfoGet (string filename) ==> {string: variant}
+    IteminfoGetLine (string filename) ==> string
+    ItemsListGet () ==> array of string
+    ListMethodsGet () ==> array of string
+    SetItemStatus (string name, int32 status) ==> boolean
+    Shared ({string: variant} args) ==> {string: variant}
+
+Real signals:
+
+    action_complete (string action, {string: variant} values)
+    action_complete_string_line (string line)
+    action_started (string action, string name)
+    connection_status_changed (boolean new_status)
+    item_deleted (string filename)
+    item_status_changed (string filename, byte old_status, byte new_status)
+    new_item_added ({string: variant} image_info)
+    progress_event (int action, string name, double dt, double dr, double ut, double ur)
+    quitting ()
+    service_status_changed (boolean new_status)

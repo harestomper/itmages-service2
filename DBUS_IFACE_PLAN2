@@ -1,0 +1,86 @@
+
+Что мне нужно от базы данных:
+
+1 Чтение
+2 Запись
+3 Синхронизация по списку
+
+
+DBus интерфейс
+    
+   AuthSet              (integer oid, string username,  string   password,  boolean global) ==> (boolean)
+   AuthClear            (integer oid, boolean global)                                       ==> (boolean)
+   AuthIsSet            (integer oid, boolean global)                                       ==> (boolean)
+
+   UploadStart          (integer oid, integer without_authority)
+   UploadCancel         (integer oid, integer stop_all)
+   SyncStart            (string username)                                                   ==> (boolean)
+   
+   GetUserList          ()                                                                  ==> (string[])
+
+   ImageAdd             (string filename)                                                   ==> (integer)  /* oid */
+   ImageAddTag          (integer oid, string tag)
+   ImageAddComment      (integer oid, string comment)
+   ImageRemove          (integer oid, integer from_server)                                  ==> (boolean)
+   ImageGetList         (string username)                                                   ==> (integer[])
+   ImageGetInfoKey      (integer oid, string key)                                           ==> (string) 
+   ImageGetInfoKeyInt   (integer oid, string key)                                           ==> (integer)
+   ImageGetInfoKeys     (integer oid)                                                       ==> (string[])
+   ImageGetShortLink    (integer oid)                                                       ==> (string)
+   ImageGetAlbum        (integer oid)                                                       ==> (string)
+   ImageGetOfAlbum      (string albumname)                                                  ==> (integer[])
+   ImageGetAlbumList    ()                                                                  ==> (string[])
+   ImageGetState        (integer oid)                                                       ==> (integer)
+   ImageGetReason       (integer oid)                                                       ==> (string)
+   ImageRotate          (string filein, string fileout, integer angle)
+   ImageResize          (string filein, string fileout, integer new_width, integer new_height, boolean aspect)
+   ImageSetAlbum        (integer oid, string albumname)
+   ImageLoadPreview     (integer oid)                                                       ==> (boolean)
+ 
+   JobNameToId          (string jobname)                                                    ==> (integer)
+   JobIdToName          (integer jobid)                                                     ==> (string) 
+   JobListIds           ()                                                                  ==> (integer[])
+
+   ProxySet             (integer oid, string proxynode, integer  proxyport, integer proxytype, boolean global) ==> (boolean)
+   ProxySetAuth         (integer oid, string proxyuser, string   proxypass, boolean global) ==> (boolean)
+   ProxyIsSet           (integer oid, boolean global)                                       ==> (boolean)
+   ProxyAuthIsSet       (integer oid, boolean global)                                       ==> (boolean)
+   ProxyClear           (integer oid, boolean global)                                       ==> (boolean)
+   ProxyAuthClear       (integer oid, boolean global)                                       ==> (boolean)
+   ProxyGetTypes        ()                                                                  ==> (integer[])
+   ProxyNickToInt       (string nick)                                                       ==> (integer)
+   ProxyIntToNick       (integer type)                                                      ==> (string)
+   
+   
+   
+   GetNetworkStatus     ()                                                                  ==> (boolean)
+   
+     
+Signals
+
+   Finished             (integer job, integer oid)
+   Started              (integer job, integer oid)
+   Removed              (integer oid, integer from_server)
+   Progress             (integer job, integer oid, integer dt, integer dr, integer ut, integer ur)
+   NetworkChanged       ()
+      
+План:
+    - При добавлении файла, взять его хэш и попытаться найти аналогичный в базе.
+      Если нет такого, то добавить и вернуть его OID. Иначе, проверить состояние 
+      сохраненного. Если имя файла такое же, как и у добавляемого, то вернуть 
+      OID сохраненного. Иначе, проверить наличие ID и KEY. Если файл уже 
+      загружен, то присвоить вновь добавляемому файлу все те же аттрибуты, 
+      без созранения в базе. 
+
+
+Что мне нужно от тегов:
+    - Добавлять теги
+    - Удалять все теги по image_id
+    - Добавлять к картинкам тег
+    - Брать список тегов
+    - Брать список тегов к картинке
+    - Брать список картинок к тегу
+    - Брать числовой ID к тегу
+    
+
+
