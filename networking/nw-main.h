@@ -1,9 +1,8 @@
 
 
 
-#ifndef __NWMAIN__
-#define __NWMAIN__
-
+#ifndef __NW_MAIN_H__
+#define __NW_MAIN_H__
 
 #define NW_URL_API              "http://itmages.ru/api/v2"
 #define NW_USER_AGENT           "ITmages GNU/Linux network client v0.0.1"
@@ -47,5 +46,4 @@
 #define NW_RESPONSE_GUEST       "Guest"
 #define NW_RESPONSE_OK          "ok"
 
-
-#endif /* __NWMAIN__ */
+#endif /* __NW_MAIN_H__ */

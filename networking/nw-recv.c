@@ -47,6 +47,7 @@ NwRecv* nw_recv_copy (NwRecv *src)
         
     retval = nw_recv_new (src->type);
     *retval = *src;
+    retval->message = g_strdup (src->message);
 
     for (retval->n_items = 0; retval->n_items < src->n_items; retval->n_items++) {
         retval->items = realloc (retval->items, sizeof (*retval->items) * (retval->n_items + 1));

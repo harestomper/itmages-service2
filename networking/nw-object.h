@@ -51,11 +51,26 @@ struct _NwObjectClass
   GObjectClass parent_class;
 };
 
+typedef void (*NwObjectStatusFunc) (NwObject *self, NwRecvStatus status, gpointer user_data);
+typedef void (*NwObjectActionFunc) (NwObject *self, NwRecvType action_type, gpointer user_data);
+typedef gboolean (*NwObjectProgressFunc) (NwObject *self, guint total, guint now, NwDirect direct, gpointer user_data);
 
 GType nw_object_get_type (void);
 
-NwObject *nw_object_new (void);
+NwObject*       nw_object_new                   (void);
+NwRecvStatus    nw_object_get_status            (NwObject *self);
+const gchar*    nw_object_get_message           (NwObject *self);
+NwDirect        nw_object_get_progress          (NwObject *self, guint *total, guint *now);
+NwRecvType      nw_object_get_action            (NwObject *self);
+const NwRecv*   ne_object_get_request           (NwObject *self);
+const gchar*    nw_object_get_cookies           (NwObject *self);
+gboolean        nw_object_perform               (NwObject *self, NwRecv *recv, gboolean need_copy);
+void            nw_object_cancel                (NwObject *self);
+gboolean        nw_object_start                 (NwObject *self);
 
+void            nw_object_set_status_func       (NwObject *self, NwObjectStatusFunc func, gpointer user_data);
+void            nw_object_set_action_func       (NwObject *self, NwObjectActionFunc func, gpointer user_data);
+void            nw_object_set_progress_func     (NwObject *self, NwObjectProgressFunc func, gpointer user_data);
 
 G_END_DECLS
 

@@ -32,8 +32,7 @@ static void nw_pool_finalize (GObject *object);
 G_DEFINE_TYPE (NwPool, nw_pool, G_TYPE_OBJECT)
 
 
-static void
-nw_pool_class_init (NwPoolClass *klass)
+static void nw_pool_class_init (NwPoolClass *klass)
 {
   GObjectClass *g_object_class;
 
@@ -45,8 +44,7 @@ nw_pool_class_init (NwPoolClass *klass)
 }
 
 
-static void
-nw_pool_finalize (GObject *object)
+static void nw_pool_finalize (GObject *object)
 {
   NwPool *self;
 
@@ -58,15 +56,13 @@ nw_pool_finalize (GObject *object)
 }
 
 
-static void
-nw_pool_init (NwPool *self)
+static void nw_pool_init (NwPool *self)
 {
   self->priv = G_TYPE_INSTANCE_GET_PRIVATE (self, NW_TYPE_POOL, NwPoolPrivate);
 }
 
 
-NwPool *
-nw_pool_new (void)
+NwPool* nw_pool_new (void)
 {
   return g_object_new (NW_TYPE_POOL, NULL);
 }
