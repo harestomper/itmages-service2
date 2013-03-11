@@ -24,6 +24,7 @@
 #define __NW_OBJECT_H__
 
 #include <glib-object.h>
+#include "nw-recv.h"
 
 G_BEGIN_DECLS
 
