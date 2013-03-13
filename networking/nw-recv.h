@@ -57,7 +57,7 @@ enum _NwDataItemType
     NW_DATA_ITEM_TYPE_INT,
     NW_DATA_ITEM_TYPE_STR,
     NW_DATA_ITEM_TYPE_BOOL,
-    NW_DATA_ITEM_TYPE_DATE_TIME
+    NW_DATA_ITEM_TYPE_DATE_TIME,
 };
 
 enum _NwDirect
@@ -80,11 +80,10 @@ struct _NwDataItem
 {
     NwDataItemType      type;
     gchar*              key;
+    NwDataItem*         prop;
     union val {
-        gchar*          s;
-        gint64          i;
-        guint32         t;
-        gboolean        b;
+        gchar*          str;
+        gint64          i64;
     };
 };
 
@@ -100,8 +99,8 @@ struct _NwRecv
     const gchar* cookies;
 
     /* Response section */
-    guint        n_items;
-    NwDataItem** items;
+    NwDataItem** list; 
+    guint        len;
     gchar*       message;
     NwRecvStatus status;
     
@@ -114,7 +113,9 @@ void            nw_recv_free            (gpointer data);
 NwDataItem*     nw_data_item_new        (NwDataItemType t, const gchar *key);
 NwDataItem*     nw_data_item_copy       (NwDataItem *src);
 void            nw_data_item_free       (gpointer data);
-
+NwDataItem*     nw_data_item_add        (NwDataItem **dest, NwDataItemType t, const gchar *key);
+gboolean        nw_data_item_next       (NwDataItem **item);
+    
 
 GType nw_recv_get_type (void) G_GNUC_CONST;
 #define NW_TYPE_RECV (nw_recv_get_type ())
