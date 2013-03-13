@@ -78,6 +78,7 @@ static void nw_cclosure_marshal_VOID__UINT_UINT_ENUM (
 static gint curl_progress_function (NwObject *self, gdouble dt, gdouble dn, gdouble ut, gdouble un);
 static void emit_action_signal (NwObject *self, NwRecvType action);
 static void emit_status_signal (NwObject *self, NwRecvStatus status);
+static gboolean nw_object_prepare (NwObject *self);
 //------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
@@ -481,7 +482,17 @@ static void nw_cclosure_marshal_VOID__UINT_UINT_ENUM (GClosure     *closure,
 //------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
+static size_t nw_object_write_function (gchar *buffer, size_t size, size_t nitems, void *outstream)
+{
+    return 0;
+}
+//------------------------------------------------------------------------------
 
+//------------------------------------------------------------------------------
+static gboolean nw_object_prepare (NwObject *self)
+{
+    return FALSE;
+}
 //------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
